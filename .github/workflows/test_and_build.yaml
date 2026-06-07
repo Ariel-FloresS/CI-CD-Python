@@ -41,12 +41,17 @@ jobs:
                 username: ${{ github.actor }}
                 password: ${{ secrets.GITHUB_TOKEN }}
 
+            - name: Prepare Tag for Docker Image
+              id: image
+              run: |
+                TAG=$(echo "ghcr.io/${{ github.repository }}:${{ inputs.docker_tag }}" | tr '[:upper:]' '[:lower:]')
+                echo "name=$TAG" >> $GITHUB_OUTPUT
+                echo "Tag generado: $TAG"    
+
             - name: Build and push Docker Image
               uses: docker/build-push-action@v5
-              env:
-                REPO: ${{ github.repository }}
               with:
                 push: true
-                tags: ghcr.io/${{ env.REPO }}:${{ inputs.docker_tag }}
+                tags: ${{ steps.image.outputs.name }}
 
 
