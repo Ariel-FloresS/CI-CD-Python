@@ -9,8 +9,7 @@ on:
                 required: True
 
 permissions:
-  contents: write
-
+    contents: read
 
 
 jobs:
@@ -44,7 +43,10 @@ jobs:
 
             - name: Build and push Docker Image
               uses: docker/build-push-action@v5
+              env:
+                REPO: ${{ github.repository }}
               with:
                 push: true
-                tags: ghcr.io/${{ github.actor}}/${{github.repository}}:${{inputs.docker_tag}}
+                tags: ghcr.io/${{ env.REPO }}:${{ inputs.docker_tag }}
+
 
