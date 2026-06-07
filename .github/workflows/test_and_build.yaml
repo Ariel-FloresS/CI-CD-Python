@@ -28,7 +28,7 @@ jobs:
               run: uv python install
 
             - name: Check Linting (Quality Code)
-              run: uv ruff check 
+              run: uv run ruff check 
 
             - name: Test
               run: uv run pytest -vv
