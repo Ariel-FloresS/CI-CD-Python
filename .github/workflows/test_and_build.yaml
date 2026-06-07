@@ -9,7 +9,7 @@ on:
                 required: True
 
 permissions:
-    contents: read
+    packages: write 
 
 
 jobs:
@@ -46,7 +46,7 @@ jobs:
               run: |
                 TAG=$(echo "ghcr.io/${{ github.repository }}:${{ inputs.docker_tag }}" | tr '[:upper:]' '[:lower:]')
                 echo "name=$TAG" >> $GITHUB_OUTPUT
-                echo "Tag generado: $TAG"    
+                echo "Generated Tag: $TAG"    
 
             - name: Build and push Docker Image
               uses: docker/build-push-action@v5
